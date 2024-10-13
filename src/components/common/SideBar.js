@@ -4,7 +4,8 @@ import Link from "next/link";
 const SideBar = () => {
     return (
         <div className="flex flex-col justify-start items-center h-[1080px] relative gap-5 py-[11px] bg-gray-100">
-        <svg
+          <Link href="/">
+          <svg
           width={174}
           height={48}
           viewBox="0 0 174 48"
@@ -61,11 +62,12 @@ const SideBar = () => {
             fill="#336690"
           />
         </svg>
+        </Link>
         <div className="flex-grow-0 flex-shrink-0 w-[280px] h-[265px] relative">
           <div className="w-[280px] h-[70px] absolute left-0 top-[55px]">
-            <p className="absolute left-[93px] top-[21px] text-xl font-bold text-left text-[#383838]">
+            <Link href="/learning/word-match" className="absolute left-[93px] top-[21px] text-xl font-bold text-left text-[#383838]">
               단어맞추기
-            </p>
+            </Link>
             <svg
               width={24}
               height={24}
@@ -82,9 +84,9 @@ const SideBar = () => {
             </svg>
           </div>
           <div className="w-[280px] h-[70px] absolute left-0 top-[125px]">
-            <p className="absolute left-[93px] top-[21px] text-xl font-bold text-left text-[#383838]">
+            <Link href="/learning/meaning-match" className="absolute left-[93px] top-[21px] text-xl font-bold text-left text-[#383838]">
               뜻 맞추기
-            </p>
+            </Link>
             <svg
               width={24}
               height={24}
@@ -103,9 +105,9 @@ const SideBar = () => {
             </svg>
           </div>
           <div className="w-[280px] h-[70px] absolute left-0 top-[195px]">
-            <p className="absolute left-[93px] top-[21px] text-xl font-bold text-left text-[#383838]">
+            <Link href="/learning/sentence-build" className="absolute left-[93px] top-[21px] text-xl font-bold text-left text-[#383838]">
               문장 만들기
-            </p>
+            </Link>
             <svg
               width={24}
               height={24}

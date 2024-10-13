@@ -8,7 +8,7 @@ export const metadata = {
     description: "TEAM.dot: Word Wise Web",
 };
 
-export default function RootLayout({ children }) {
+export default function SignUpLayout({ children }) {
     return (
         <html lang="ko">
             <body style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
