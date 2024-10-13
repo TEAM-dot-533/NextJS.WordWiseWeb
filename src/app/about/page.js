@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function AboutPage() {
   return (
     <div className="w-[1920px] h-[2593px] relative bg-white">
@@ -51,23 +53,23 @@ export default function AboutPage() {
   </p>
   <div className="flex flex-col justify-start items-start absolute left-[972px] top-[933px] gap-2.5">
     <div className="flex justify-center items-center self-stretch flex-grow-0 flex-shrink-0 relative gap-2.5 px-[30px] py-2 rounded-lg bg-[#336690] border-2 border-[#333236]">
-      <p className="flex-grow-0 flex-shrink-0 text-base font-bold text-center text-white/90">
+      <Link href="/wordbook" className="flex-grow-0 flex-shrink-0 text-base font-bold text-center text-white/90">
         단어장으로 가기
-      </p>
+      </Link>
     </div>
   </div>
   <div className="flex flex-col justify-start items-start absolute left-[972px] top-[1857px] gap-2.5">
     <div className="flex justify-center items-center self-stretch flex-grow-0 flex-shrink-0 relative gap-2.5 px-[30px] py-2 rounded-lg bg-[#336690] border-2 border-[#333236]">
-      <p className="flex-grow-0 flex-shrink-0 text-base font-bold text-center text-white/90">
+      <Link href="/wordbook" className="flex-grow-0 flex-shrink-0 text-base font-bold text-center text-white/90">
         단어장으로 가기
-      </p>
+      </Link>
     </div>
   </div>
   <div className="flex flex-col justify-start items-start absolute left-[400px] top-[1353px] gap-2.5">
     <div className="flex justify-center items-center self-stretch flex-grow-0 flex-shrink-0 relative gap-2.5 px-[30px] py-2 rounded-lg bg-[#336690] border-2 border-[#333236]">
-      <p className="flex-grow-0 flex-shrink-0 text-base font-bold text-center text-white/90">
+      <Link href="/wordbook" className="flex-grow-0 flex-shrink-0 text-base font-bold text-center text-white/90">
         단어장으로 가기
-      </p>
+      </Link>
     </div>
   </div>
   <p className="w-[596px] h-11 absolute left-[662px] top-[165px] text-4xl font-bold text-center text-[#383838]">
