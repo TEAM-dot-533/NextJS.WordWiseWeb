@@ -1,4 +1,91 @@
+"use client";
+
+import React, { useState } from 'react';
+
 export default function LoginPage() {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [message, setMessage] = useState('');
+  const [token, setToken] = useState(null);
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+
+    const loginData = {
+      email: email,
+      password: password,
+      type: 'home',
+    };
+
+    try {
+      const response = await fetch('https://port-0-nodejs-wordwiseweb-be-m0c7usj0d8d98e17.sel4.cloudtype.app/api/user/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(loginData),
+      });
+
+      const contentType = response.headers.get('content-type');
+      if (contentType && contentType.includes('application/json')) {
+        const data = await response.json();
+
+        if (response.ok && data.success) {
+          // 로그인 성공 시 처리
+          setMessage(data.message || '로그인 성공!');
+          setToken(data.token);  // 토큰 저장
+          console.log('로그인 성공:', data);
+
+          // 로그인 성공 시 메인 페이지로 (임시)
+          router.push('/');
+        } else {
+          // 로그인 실패 시 처리
+          setMessage(`로그인 실패: ${data.message}`);
+          console.error('로그인 실패:', data.message);
+        }
+      } else {
+        const text = await response.text();
+        setMessage('서버에서 유효하지 않은 응답을 받았습니다.');
+        console.error('유효하지 않은 응답:', text);
+      }
+    } catch (error) {
+      setMessage('로그인 중 오류 발생');
+      console.error('네트워크 오류:', error);
+    }
+  };
+
+  // 토큰 유효성 검증 함수
+  const verifyToken = async () => {
+    try {
+      const response = await fetch('http://localhost:3000/api/user/verify-token', {
+        method: 'GET',
+        headers: {
+          'Authorization': `Bearer ${token}`, // 토큰을 Authorization 헤더에 추가
+        },
+      });
+
+      const contentType = response.headers.get('content-type');
+      if (contentType && contentType.includes('application/json')) {
+        const data = await response.json();
+
+        if (response.ok && data.success) {
+          setMessage(data.message || '토큰이 유효합니다.');
+          console.log('토큰 유효성 확인:', data);
+        } else {
+          setMessage(`토큰 유효성 확인 실패: ${data.message}`);
+          console.error('토큰 유효성 확인 실패:', data.message);
+        }
+      } else {
+        const text = await response.text();
+        setMessage('서버에서 유효하지 않은 응답을 받았습니다.');
+        console.error('유효하지 않은 응답:', text);
+      }
+    } catch (error) {
+      setMessage('토큰 유효성 확인 중 오류 발생');
+      console.error('네트워크 오류:', error);
+    }
+  };
+  
     return (
         <div className="w-[1920px] h-[1080px] relative bg-white">
         <svg
@@ -58,18 +145,36 @@ export default function LoginPage() {
             fill="#336690"
           />
         </svg>
+        {/* 이메일 입력 필드 */}
         <div className="flex justify-between items-center w-[377px] h-[54px] absolute left-[772px] top-[313px] px-6 py-[13px] rounded-[20px] bg-gray-100">
-          <p className="flex-grow-0 flex-shrink-0 text-lg text-left text-[#b3b3b3]">이메일</p>
+          <input
+            type="email"
+            placeholder="이메일"
+            className="w-full bg-transparent text-lg text-left text-[#b3b3b3] outline-none"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
         </div>
+        {/* 비밀번호 입력 필드 */}
         <div className="flex justify-between items-center w-[377px] h-[54px] absolute left-[772px] top-[387px] px-6 py-[13px] rounded-[20px] bg-gray-100">
-          <p className="flex-grow-0 flex-shrink-0 text-lg text-left text-[#b3b3b3]">비밀번호</p>
+          <input
+            type="password"
+            placeholder="비밀번호"
+            className="w-full bg-transparent text-lg text-left text-[#b3b3b3] outline-none"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
         </div>
+        {/* 로그인 버튼 */}
         <div className="flex flex-col justify-start items-start absolute left-[774px] top-[461px] gap-[15px]">
-          <div className="flex justify-center items-center flex-grow-0 flex-shrink-0 relative gap-2.5 px-[166px] py-[15px] rounded-lg bg-[#336690] border-2 border-[#333236]">
+          <button
+            onClick={handleLogin}
+            className="flex justify-center items-center flex-grow-0 flex-shrink-0 relative gap-2.5 px-[166px] py-[15px] rounded-lg bg-[#336690] border-2 border-[#333236]"
+          >
             <p className="flex-grow-0 flex-shrink-0 text-base font-bold text-center text-white/90">
               로그인
             </p>
-          </div>
+          </button>
         </div>
         <p className="absolute left-[777px] top-[625px] text-lg text-left text-[#383838]">회원가입</p>
         <p className="absolute left-[777px] top-[556px] text-xl font-bold text-left text-[#383838]">
